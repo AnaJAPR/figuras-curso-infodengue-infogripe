@@ -23,6 +23,13 @@ POP_URL = (
     "projecoes_2024_tab1_idade_simples.xlsx"
 )
 
+INFOGRIPE_SEXO_URL = (
+    "https://raw.githubusercontent.com/"
+    "infogripe/Boletim_InfoGripe/main/"
+    "Dados/InfoGripe/"
+    "dados_semanais_faixa_etaria_sexo_virus_sem_filtro_febre.csv.gz"
+)
+
 COR_LINHA = "#F36900"
 COR_BARRAS = "#D087F7"
 
@@ -137,6 +144,13 @@ dados = pd.read_csv(
     low_memory=False,
 )
 
+dados_sexo = pd.read_csv(
+    INFOGRIPE_SEXO_URL,
+    sep=";",
+    compression="gzip",
+    low_memory=False,
+)
+
 pop = pd.read_excel(
     POP_URL,
     skiprows=5,
@@ -159,6 +173,7 @@ pop_sp = pop_sp.melt(
 
 pop_sp["epiyear"] = pop_sp["epiyear"].astype(int)
 
+### Gŕafico de linhas - incidência por 100k habitantes por mês SP 2018, 2019 e 2023
 
 df_linha = dados[
     (dados["DS_UF_SIGLA"] == "SP")
@@ -283,6 +298,7 @@ plt.savefig(
 
 plt.close()
 
+### Gráfico de barras - casos por faixa etária SP 2018, 2019 e 2023
 
 sub_fx = dados[
     (dados["DS_UF_SIGLA"] == "SP")
@@ -390,3 +406,124 @@ plt.savefig(
 )
 
 plt.close()
+
+### Gŕafico de pizza - casos por sexo SP 2018, 2019 e 2023
+
+dados_sexo_sp = dados_sexo[
+    (dados_sexo["UF"] == 35)
+    & (dados_sexo["Tipo"] == "Estado")
+    & (dados_sexo["dado"] == "srag")
+    & (dados_sexo["escala"] == "casos")
+    & (dados_sexo["sexo"].isin(["F", "M"]))
+    & (dados_sexo["Ano epidemiológico"].isin(ANOS_ANALISE))
+].copy()
+
+dados_sexo_sp["Casos semanais reportados até a última atualização"] = pd.to_numeric(
+    dados_sexo_sp["Casos semanais reportados até a última atualização"]
+    .str.replace(",", ".", regex=False),
+    errors="coerce"
+)
+
+dados_sexo_ano = (
+    dados_sexo_sp
+    .groupby(["Ano epidemiológico", "sexo"], as_index=False)[
+        "Casos semanais reportados até a última atualização"
+    ]
+    .sum()
+)
+
+cores_sexo = {
+    "F": "#9122BA",
+    "M": "#E3BEFA"
+}
+
+nomes_sexo = {
+    "F": "Feminino",
+    "M": "Masculino"
+}
+
+fig, axes = plt.subplots(
+    1,
+    len(ANOS_ANALISE),
+    figsize=(10, 4)
+)
+
+for ax, ano in zip(axes, ANOS_ANALISE):
+
+    dados_ano = dados_sexo_ano[
+        dados_sexo_ano["Ano epidemiológico"] == ano
+    ].copy()
+
+    valores = dados_ano[
+        "Casos semanais reportados até a última atualização"
+    ].to_numpy()
+
+    cores = [
+        cores_sexo[sexo]
+        for sexo in dados_ano["sexo"]
+    ]
+
+    wedges, textos, autotextos = ax.pie(
+        valores,
+        colors=cores,
+        startangle=110,
+        counterclock=False,
+        autopct="%1.1f%%",
+        wedgeprops={
+            "edgecolor": "white",
+            "linewidth": 1
+        }
+    )
+
+    for i, texto in enumerate(autotextos):
+        if dados_ano.iloc[i]["sexo"] == "F":
+            texto.set_color("white")
+        else:
+            texto.set_color("black")
+
+    letra = chr(65 + list(ANOS_ANALISE).index(ano))
+
+    ax.set_title(
+        f"{letra}.",
+        fontsize=12,
+        fontweight="bold",
+        color="#4A4A4A",
+        loc="left",
+        x=0.2,
+        pad=6,
+    )
+
+    handles = [
+        plt.Rectangle(
+            (0, 0),
+            1,
+            1,
+            facecolor=cores_sexo["F"]
+        ),
+        plt.Rectangle(
+            (0, 0),
+            1,
+            1,
+            facecolor=cores_sexo["M"]
+        )
+    ]
+
+    ax.legend(
+        handles,
+        ["Feminino", "Masculino"],
+        loc="upper center",
+        bbox_to_anchor=(0.5,0.1),
+        ncol=2,
+        frameon=False,
+        handlelength=0.8,
+        handleheight=0.8,
+        columnspacing=1
+    )
+
+plt.tight_layout()
+
+plt.savefig(
+    "../figuras_infogripe/plot_sexo_SP.tiff",
+    dpi=300,
+    bbox_inches="tight"
+)
