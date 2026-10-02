@@ -428,7 +428,7 @@ ax.legend(
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infogripe/grafico1_inc_mg_2026.tiff",
+    "../figuras_infogripe/grafico1_inc_mg_2026.png",
     dpi=300,
     bbox_inches="tight"
 )
@@ -527,7 +527,7 @@ ax.legend(
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infogripe/limiares_SRAG_desafio_tela1.tiff",
+    "../figuras_infogripe/limiares_SRAG_desafio_tela1.png",
     dpi=300,
     bbox_inches="tight"
 )
@@ -952,7 +952,7 @@ plt.tight_layout()
 
 
 plt.savefig(
-    "../figuras_infogripe/bandas_prob_desafio_tela2.tiff",
+    "../figuras_infogripe/bandas_prob_desafio_tela2.png",
     dpi=300,
     bbox_inches="tight"
 )

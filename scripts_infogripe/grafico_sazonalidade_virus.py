@@ -211,9 +211,8 @@ fig.legend(
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infogripe/plot_BR_SAZO.tiff",
+    "../figuras_infogripe/plot_BR_SAZO.png",
     dpi=300,
-    format="tiff",
     bbox_inches="tight",
 )
 
@@ -388,9 +387,8 @@ plt.subplots_adjust(
 )
 
 plt.savefig(
-    "../figuras_infogripe/plot_BR_SRAG_serie.tiff",
+    "../figuras_infogripe/plot_BR_SRAG_serie.png",
     dpi=300,
-    format="tiff",
     bbox_inches="tight",
 )
 

@@ -20,9 +20,6 @@ POPULACAO_URL = (
     "projecoes_2024_tab1_idade_simples.xlsx"
 )
 
-GEOJSON_PATH = "br.geojson"
-OUTPUT_PATH = "../figuras_infogripe/mapa_srag.tiff"
-
 COR_CASOS_INICIAL = "#E3BEFA"
 COR_CASOS_FINAL = "#BF42F2"
 
@@ -82,7 +79,7 @@ df = (
     .agg(SRAG=("SRAG", "sum"), inci=("i_srag", "mean"))
 )
 
-mapa = gpd.read_file(GEOJSON_PATH)
+mapa = gpd.read_file("br.geojson")
 
 COLUNA_SIGLA_GEOJSON = "sigla"
 
@@ -175,9 +172,8 @@ add_cbar(axes[1], summa_sf, "inci", cmap_incidencia,
 plt.tight_layout()
 
 plt.savefig(
-    OUTPUT_PATH,
+    "../figuras_infogripe/mapa_srag.png",
     dpi=300,
-    format="tiff",
     bbox_inches="tight",
 )
 

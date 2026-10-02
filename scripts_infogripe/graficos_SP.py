@@ -290,9 +290,8 @@ axes[0].set_ylabel(
 plt.subplots_adjust(wspace=0.35)
 
 plt.savefig(
-    "../figuras_infogripe/plot_mes_SP.tiff",
+    "../figuras_infogripe/plot_mes_SP.png",
     dpi=300,
-    format="tiff",
     bbox_inches="tight",
 )
 
@@ -399,9 +398,8 @@ axes[0].set_ylabel(
 plt.subplots_adjust(wspace=0.25)
 
 plt.savefig(
-    "../figuras_infogripe/plot_SP_fx_etaria.tiff",
+    "../figuras_infogripe/plot_SP_fx_etaria.png",
     dpi=300,
-    format="tiff",
     bbox_inches="tight",
 )
 
@@ -523,7 +521,7 @@ for ax, ano in zip(axes, ANOS_ANALISE):
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infogripe/plot_sexo_SP.tiff",
+    "../figuras_infogripe/plot_sexo_SP.png",
     dpi=300,
     bbox_inches="tight"
 )

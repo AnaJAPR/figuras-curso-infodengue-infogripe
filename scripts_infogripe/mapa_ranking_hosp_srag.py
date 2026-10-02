@@ -5,7 +5,7 @@ from matplotlib.colors import LinearSegmentedColormap
 
 
 # https://github.com/infogripe/Boletim_InfoGripe/blob/main/Dados/InfoGripe/casos_semanais_fx_etaria_virus_sem_filtro_febre.csv
-ARQUIVO = "casos_semanais_fx_etaria_virus_sem_filtro_febre.csv"
+ARQUIVO = "dados/casos_semanais_fx_etaria_virus_sem_filtro_febre.csv"
 
 ARQUIVO_GEOJSON = "br.geojson"
 
@@ -184,7 +184,7 @@ ax.set_axis_off()
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infogripe/mapa_ranking_srag_2023_2025.tiff",
+    "../figuras_infogripe/mapa_ranking_srag_2023_2025.png",
     dpi=300,
     bbox_inches="tight"
 )

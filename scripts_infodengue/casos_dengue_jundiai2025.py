@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-ARQUIVO = "dados_3525904.parquet"
+ARQUIVO = "dados/dados_3525904.parquet"
 
 ANO = 2025
 
@@ -90,7 +90,7 @@ configurar_grafico(ax)
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infodengue/dengue_jundiai_mes_2025.tiff",
+    "../figuras_infodengue/dengue_jundiai_mes_2025.png",
     dpi=300,
     bbox_inches="tight"
 )
@@ -202,7 +202,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infodengue/dengue_jundiai_idade_2025.tiff",
+    "../figuras_infodengue/dengue_jundiai_idade_2025.png",
     dpi=300,
     bbox_inches="tight"
 )
@@ -304,7 +304,7 @@ ax.legend(
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infodengue/dengue_jundiai_sexo_2025.tiff",
+    "../figuras_infodengue/dengue_jundiai_sexo_2025.png",
     dpi=300,
     bbox_inches="tight"
 )

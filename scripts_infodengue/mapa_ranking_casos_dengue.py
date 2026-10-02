@@ -7,13 +7,10 @@ from matplotlib.colors import LinearSegmentedColormap
 ARQUIVO = "dados/dengue_brasil_2023_2025.csv"
 ARQUIVO_GEOJSON = "../scripts_infogripe/br.geojson"
 
-ARQUIVO_SAIDA = "../figuras_infodengue/mapa_ranking_dengue_2023_2025.tiff"
+ARQUIVO_SAIDA = "../figuras_infodengue/mapa_ranking_dengue_2023_2025.png"
 
 
 df = pd.read_csv(ARQUIVO)
-
-print(df.columns)
-print(df.head())
 
 df["data_iniSE"] = pd.to_datetime(df["data_iniSE"], errors="coerce")
 

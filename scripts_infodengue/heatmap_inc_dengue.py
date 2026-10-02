@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 
 # dados do infodengue
-ARQUIVO = "dados_heatmap.csv"
+ARQUIVO = "dados/dados_heatmap.csv"
 
 ANO_INICIAL = 2010
 ANO_FINAL = 2025
@@ -24,8 +24,6 @@ except UnicodeDecodeError:
         ARQUIVO,
         encoding="latin1"
     )
-
-print(df.columns)
 
 df[COLUNA_SE] = pd.to_numeric(
     df[COLUNA_SE],
@@ -205,7 +203,7 @@ ax.tick_params(
 plt.tight_layout()
 
 plt.savefig(
-    "../figuras_infodengue/heatmap_incidencia_dengue_2010_2025.tiff",
+    "../figuras_infodengue/heatmap_incidencia_dengue_2010_2025.png",
     dpi=300,
     bbox_inches="tight"
 )
