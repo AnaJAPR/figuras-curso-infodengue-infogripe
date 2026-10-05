@@ -157,6 +157,36 @@ for _, row in gdf.iterrows():
         color="white"
     )
 
+vmin = ranking["casos_notificados"].min()
+vmax = ranking["casos_notificados"].max()
+
+norm = plt.Normalize(
+    vmin=vmin,
+    vmax=vmax
+)
+
+sm = plt.cm.ScalarMappable(
+    cmap=cmap,
+    norm=norm
+)
+
+sm.set_array([])
+
+cbar = fig.colorbar(
+    sm,
+    ax=ax,
+    fraction=0.035,
+    pad=0.02
+)
+
+cbar.set_label(
+    "Casos notificados de dengue (2023-2025)",
+    fontsize=10
+)
+
+cbar.ax.tick_params(
+    labelsize=9
+)
 
 ax.set_axis_off()
 
